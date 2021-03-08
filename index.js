@@ -75,9 +75,24 @@ app.route("/articles/:articleTitle")
     Article.replaceOne(
         {title: req.params.articleTitle},
         {title: req.body.title, content: req.body.content},
+        {overwrite: true},
         function(err){
             if(!err){
                 res.send("Article Updated Successfully")
+            }else{
+                res.send(err)
+            }
+        }
+    );
+})
+
+.patch(function(req,res){
+    Article.update(
+        {title: req.params.articleTitle},
+        {$set: req.body},
+        function(err){
+            if(!err){
+                res.send("Successfully updated Selected Article")
             }else{
                 res.send(err)
             }
