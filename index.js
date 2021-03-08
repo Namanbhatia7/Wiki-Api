@@ -58,6 +58,20 @@ app.route("/articles")
     })
 });
 
+/////////////////////////////// Request For a Particular Article ///////////////////////////////////////////
+
+app.route("/articles/:articleTitle")
+.get(function(req,res){
+    Article.findOne({title: req.params.articleTitle}, function(err,foundArticle){
+        if(foundArticle){
+            res.send(foundArticle)
+        }else{
+            res.send("No such Article Found");
+        }
+
+    })
+})
+
 
 app.listen(3000,() =>{
     console.log("Listening on Port 3000")
