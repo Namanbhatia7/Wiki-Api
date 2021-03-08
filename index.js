@@ -68,9 +68,22 @@ app.route("/articles/:articleTitle")
         }else{
             res.send("No such Article Found");
         }
-
     })
 })
+
+.put(function(req,res){
+    Article.replaceOne(
+        {title: req.params.articleTitle},
+        {title: req.body.title, content: req.body.content},
+        function(err){
+            if(!err){
+                res.send("Article Updated Successfully")
+            }else{
+                res.send(err)
+            }
+        }
+    );
+});
 
 
 app.listen(3000,() =>{
